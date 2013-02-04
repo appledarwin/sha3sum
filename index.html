@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>sha3sum by maandree</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>sha3sum</h1>
+        <h2>SHA-3/Keccak checksum utility and library</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/maandree/sha3sum/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/maandree/sha3sum/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/maandree/sha3sum" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <p>COMPLETE STATUS:</p>
+
+<pre><code>    python  :: optimised
+    java    :: not correct, not optimised
+    c       :: planned (after java)
+    nasm    :: planned (maybe, after c)
+    haskell :: planned (maybe)
+</code></pre>
+
+<p>SHA-3/Keccak checksum calculator</p>
+
+<p>USAGE:</p>
+
+<pre><code>    sha3sum [option...] &lt; FILE
+    sha3sum [option...] file...
+</code></pre>
+
+<p>OPTIONS:</p>
+
+<pre><code>    -r BITRATE
+    --bitrate      The bitrate to use for SHA-3.          (default: 576)
+
+    -c CAPACITY
+    --capacity     The capacity to use for SHA-3.         (default: 1024)
+
+    -w WORDSIZE
+    --wordsize     The word size to use for SHA-3.        (default: 64)
+
+    -o OUTPUTSIZE
+    --outputsize   The output size to use for SHA-3.      (default: 512)
+
+    -s STATESIZE
+    --statesize    The state size to use for SHA-3.       (default: 1600)
+
+    -i ITERATIONS
+    --iterations   The number of hash iterations to run.  (default: 1)
+
+    -b
+    --binary       Print the checksum in binary, rather than hexadecimal.
+</code></pre>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
