@@ -30,43 +30,46 @@
       <section id="main_content">
         <p>COMPLETE STATUS:</p>
 
-<pre><code>    python  :: optimised
-    java    :: not correct, not optimised
-    c       :: planned (after java)
-    nasm    :: planned (maybe, after c)
-    haskell :: planned (maybe)
+<pre><code>Pure Java 1.2+  ::  optimised
+Python 3        ::  optimised
+C ISO C90       ::  optimised
+Java/C JNI      ::  under development
+NASM            ::  planned (maybe, after jni)
+Haskell         ::  planned (maybe)
+Python 2        ::  planned (maybe)
+Perl            ::  planned (maybe)
 </code></pre>
 
-<p>SHA-3/Keccak checksum calculator</p>
+<p><strong>SHA-3/Keccak checksum calculator</strong></p>
 
-<p>USAGE:</p>
+<p><em>USAGE:</em></p>
 
-<pre><code>    sha3sum [option...] &lt; FILE
-    sha3sum [option...] file...
+<pre><code>sha3sum [option...] &lt; FILE
+sha3sum [option...] file...
 </code></pre>
 
-<p>OPTIONS:</p>
+<p><em>OPTIONS:</em></p>
 
-<pre><code>    -r BITRATE
-    --bitrate      The bitrate to use for SHA-3.          (default: 576)
+<pre><code>-r BITRATE
+--bitrate      The bitrate to use for SHA-3.          (default: 576)
 
-    -c CAPACITY
-    --capacity     The capacity to use for SHA-3.         (default: 1024)
+-c CAPACITY
+--capacity     The capacity to use for SHA-3.         (default: 1024)
 
-    -w WORDSIZE
-    --wordsize     The word size to use for SHA-3.        (default: 64)
+-w WORDSIZE
+--wordsize     The word size to use for SHA-3.        (default: 64)
 
-    -o OUTPUTSIZE
-    --outputsize   The output size to use for SHA-3.      (default: 512)
+-o OUTPUTSIZE
+--outputsize   The output size to use for SHA-3.      (default: 512)
 
-    -s STATESIZE
-    --statesize    The state size to use for SHA-3.       (default: 1600)
+-s STATESIZE
+--statesize    The state size to use for SHA-3.       (default: 1600)
 
-    -i ITERATIONS
-    --iterations   The number of hash iterations to run.  (default: 1)
+-i ITERATIONS
+--iterations   The number of hash iterations to run.  (default: 1)
 
-    -b
-    --binary       Print the checksum in binary, rather than hexadecimal.
+-b
+--binary    Print the checksum in binary, rather than hexadecimal.
 </code></pre>
       </section>
     </div>
