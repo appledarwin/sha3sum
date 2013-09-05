@@ -57,8 +57,24 @@ theta state = \ i -> theta' (5 * i)
         s j = state !! (i + j)
 
 
-rho_pi_theta :: (Int -> Int) -> [Int] -> Int -> [Int]
-rho_pi_theta a state w = []
+i' :: Int -> Int -> Int
+i' i m = (m * 3 * (i % 5)) + ((1 + m) * (i `div` 5))
+
+s' :: [Int] -> Int -> Int
+s' s i = s !!! (i' i 5, 25)
+
+a' :: (Int -> Int) -> Int -> Int
+a' a i = a ((i' i 1) % 5)
+
+
+rho_pi_theta :: (Int -> Int) -> [Int] -> Int -> (Int -> Int)
+rho_pi_theta a state w = \ i -> ((s' state i) <+> (a' a i), w) >>> (r i)
+  where
+    r i = [ 0, 28,  1, 27, 62,
+           44, 20,  6, 36, 55,
+           43,  3, 25, 10, 39,
+           21, 45,  8, 15, 41,
+           14, 61, 18, 56,  2] !! i
 
 
 chi :: [Int] -> (Int -> Int)
@@ -69,15 +85,15 @@ jota :: Int -> [Int] -> [Int]
 jota rc (head:tail) = (head <+> rc) : tail
 
 
-unlambda :: (Int -> Int) -> [Int]
-unlambda lambda = unlambda' 0
+unl :: (Int -> Int) -> [Int]
+unl lambda = unlambda' 0
   where
     unlambda' n = lambda n : unlambda' (n + 1)
 
 
 
 keccakFRound :: [Int] -> Int -> Int -> [Int]
-keccakFRound state round w = jota rc (unlambda (chi (rho_pi_theta (theta state) state w)))
+keccakFRound state round w = jota rc (unl $ chi $ unl $ rho_pi_theta (theta state) state w)
   where
     rc = rc' %% w
       where
