@@ -33,7 +33,7 @@ lb x = (lb' 0xFF00 8 (lb' 0x00F0 4 (lb' 0x000C 2 (lb' 0x0002 1 (\_ -> 0))))) x
                      | otherwise    = next a
 
 
--- create an array of zeroes
+-- Create an array of zeroes
 -- 
 -- @param   n  The number of zeroes
 -- @return     An array filled with `n` zeroes
@@ -69,7 +69,7 @@ keccakF state nr w
                | otherwise = keccakF (keccakFRound state nr w) (nr - 1) w
 
 
--- pad 10*1
+-- Pad 10*1
 -- 
 -- @param   msg  The message to pad
 -- @param   r    The bitrate
