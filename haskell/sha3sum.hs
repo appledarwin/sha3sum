@@ -5,6 +5,10 @@ a  %  b = a `mod` b
 a <<  b = a `shiftL` b
 
 
+(%%) :: Int -> Int -> Int
+a %% b = a .&. ((1 << b) - 1)
+
+
 -- Rotate a word
 -- 
 -- @param   w  The word size
@@ -12,7 +16,7 @@ a <<  b = a `shiftL` b
 -- @param   n  Rotation steps, may not be 0
 -- @return     The value rotated
 (>>>) :: (Int, Int) -> Int -> Int
-(x, w) >>> n = ((x `shiftR` (w - m)) + (x << m)) % (1 << w)
+(x, w) >>> n = ((x `shiftR` (w - m)) + (x << m)) %% w
   where
     m = n % w
 
@@ -37,6 +41,32 @@ zeroes :: Int -> [Int]
 zeroes n
        | n < 1     = []
        | otherwise = 0 : zeroes (n - 1)
+
+
+keccakFRound :: [Int] -> Int -> Int -> [Int]
+keccakFRound state round w = state
+  where
+    rc = rc' %% w
+      where
+        rc'
+          | round ==  0 = 0x0000000000000001 | round ==  1 = 0x0000000000008082
+          | round ==  2 = 0x800000000000808A | round ==  3 = 0x8000000080008000
+          | round ==  4 = 0x000000000000808B | round ==  5 = 0x0000000080000001
+          | round ==  6 = 0x8000000080008081 | round ==  7 = 0x8000000000008009
+          | round ==  8 = 0x000000000000008A | round ==  9 = 0x0000000000000088
+          | round == 10 = 0x0000000080008009 | round == 11 = 0x000000008000000A
+          | round == 12 = 0x000000008000808B | round == 13 = 0x800000000000008B
+          | round == 14 = 0x8000000000008089 | round == 15 = 0x8000000000008003
+          | round == 16 = 0x8000000000008002 | round == 17 = 0x8000000000000080
+          | round == 18 = 0x000000000000800A | round == 19 = 0x800000008000000A
+          | round == 20 = 0x8000000080008081 | round == 21 = 0x8000000000008080
+          | round == 22 = 0x0000000080000001 | round == 23 = 0x8000000080008008
+
+
+keccakF :: [Int] -> Int -> Int -> [Int]
+keccakF state nr w
+               | nr < 0    = state
+               | otherwise = keccakF (keccakFRound state nr w) (nr - 1) w
 
 
 -- pad 10*1
