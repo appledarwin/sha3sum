@@ -2,6 +2,19 @@ import Data.Bits
 
 a <+> b = a `xor` b
 a  %  b = a `mod` b
+a <<  b = a `shiftL` b
+
+
+-- Rotate a word
+-- 
+-- @param   w  The word size
+-- @param   x  The value to rotate
+-- @param   n  Rotation steps, may not be 0
+-- @return     The value rotated
+(>>>) :: (Int, Int) -> Int -> Int
+(x, w) >>> n = ((x `shiftR` (w - m)) + (x << m)) % (1 << w)
+  where
+    m = n % w
 
 
 -- create an array of zeroes
