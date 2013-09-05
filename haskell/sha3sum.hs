@@ -8,7 +8,7 @@ a <<  b = a `shiftL` b
 (%%) :: Int -> Int -> Int
 a %% b = a .&. ((1 << b) - 1)
 
-(!!!) :: Int -> (Int, Int) -> Int
+(!!!) :: [Int] -> (Int, Int) -> Int
 a !!! (n, m) = a !! (n % m)
 
 
@@ -77,7 +77,7 @@ unlambda lambda = unlambda' 0
 
 
 keccakFRound :: [Int] -> Int -> Int -> [Int]
-keccakFRound state round w = jota rc unlambda chi rho_pi_theta theta state state w
+keccakFRound state round w = jota rc (unlambda (chi (rho_pi_theta (theta state) state w)))
   where
     rc = rc' %% w
       where
