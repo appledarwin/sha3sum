@@ -17,6 +17,18 @@ a <<  b = a `shiftL` b
     m = n % w
 
 
+-- Binary logarithm
+-- 
+-- @param   x  The value of which to calculate the binary logarithm
+-- @return     The binary logarithm
+lb :: Int -> Int
+lb x = (lb' 0xFF00 8 (lb' 0x00F0 4 (lb' 0x000C 2 (lb' 0x0002 1 (\_ -> 0))))) x
+  where
+    lb' b value next a
+                     | a .&. b /= 0 = value + next (a `shiftR` value)
+                     | otherwise    = next a
+
+
 -- create an array of zeroes
 -- 
 -- @param   n  The number of zeroes
