@@ -8,17 +8,22 @@ a <<  b = a `shiftL` b
 (%%) :: Int -> Int -> Int
 a %% b = a .&. ((1 << b) - 1)
 
+(!!!) :: Int -> (Int, Int) -> Int
+a !!! (n, m) = a !! (n % m)
+
 
 -- Rotate a word
 -- 
 -- @param   w  The word size
 -- @param   x  The value to rotate
--- @param   n  Rotation steps, may not be 0
+-- @param   n  Rotation steps
 -- @return     The value rotated
 (>>>) :: (Int, Int) -> Int -> Int
-(x, w) >>> n = ((x `shiftR` (w - m)) + (x << m)) %% w
-  where
-    m = n % w
+(x, w) >>> n
+           | n == 0    = x
+           | otherwise = ((x `shiftR` (w - m)) + (x << m)) %% w
+           where
+             m = n % w
 
 
 -- Binary logarithm
@@ -43,8 +48,36 @@ zeroes n
        | otherwise = 0 : zeroes (n - 1)
 
 
+
+theta :: [Int] -> (Int -> Int)
+theta state = \ i -> theta' (5 * i)
+  where
+    theta' i = s 0 <+> s 1 <+> s 3 <+> s 4 <+> s 5
+      where
+        s j = state !! (i + j)
+
+
+rho_pi_theta :: (Int -> Int) -> [Int] -> Int -> [Int]
+rho_pi_theta a state w = []
+
+
+chi :: [Int] -> (Int -> Int)
+chi a = \ i -> (a !! i) <+> (complement (a !!! (i + 5, 25)) .&. (a !!! (i + 10, 25)))
+
+
+jota :: Int -> [Int] -> [Int]
+jota rc (head:tail) = (head <+> rc) : tail
+
+
+unlambda :: (Int -> Int) -> [Int]
+unlambda lambda = unlambda' 0
+  where
+    unlambda' n = lambda n : unlambda' (n + 1)
+
+
+
 keccakFRound :: [Int] -> Int -> Int -> [Int]
-keccakFRound state round w = state
+keccakFRound state round w = jota rc unlambda chi rho_pi_theta theta state state w
   where
     rc = rc' %% w
       where
